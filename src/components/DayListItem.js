@@ -5,9 +5,9 @@ import "components/DayListItem.scss";
 
 const formatSpots = (spots) => {
   return (
-    !spots && "no spots remaining"
-    || spots === 1 && "1 spot remaining"
-    || `${spots} spots remaining`
+    (!spots && "no spots remaining")
+    || (spots === 1 && "1 spot remaining")
+    || (`${spots} spots remaining`)
   );
 };
 
