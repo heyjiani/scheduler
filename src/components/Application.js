@@ -29,7 +29,6 @@ export default function Application(props) {
   }, []);
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
-  console.log('appointments are', dailyAppointments)
 
   const parsedAppointmentData =
     Array.isArray(dailyAppointments) && dailyAppointments.map(appointment => {
