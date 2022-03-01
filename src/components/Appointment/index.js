@@ -11,7 +11,7 @@ import "components/Appointment/styles.scss";
 import Status from "./Status";
 
 export default function Appointment(props) {
-  const { id, time, interview, interviewers, bookInterview } = props;
+  const { id, time, interview, interviewers, bookInterview, cancelInterview } = props;
 
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
@@ -31,8 +31,13 @@ export default function Appointment(props) {
     transition(SAVING);
 
     bookInterview(id , interview)
-    .then(transition(SHOW))
-    .catch(err => console.log(err.message));
+      .then(transition(SHOW))
+      .catch(err => console.log(err.message));
+  };
+
+  const handleDelete = () => {
+    cancelInterview(id)
+      .then(transition(EMPTY))
   };
 
   return (
@@ -43,6 +48,7 @@ export default function Appointment(props) {
         <Show
           student={interview.student}
           interviewer={interview.interviewer}
+          onDelete={handleDelete}
         />
       )}
       {mode === SAVING && <Status message={'Saving...'}/>}
