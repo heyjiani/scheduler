@@ -1,5 +1,4 @@
 import React from "react";
-// import axios from "axios";
 
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 import useApplicationData from "hooks/useApplicationData";
@@ -23,7 +22,7 @@ export default function Application(props) {
 
   const parsedAppointmentData =
     Array.isArray(dailyAppointments) && dailyAppointments.map(appointment => {
-      
+
       const interview = getInterview(state, appointment.interview);
 
       return (
