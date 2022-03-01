@@ -40,15 +40,15 @@ export default function Appointment(props) {
 
     bookInterview(id , interview)
     .then(() => transition(SHOW))
-    .catch(err => transition(ERROR_SAVE))
+    .catch(err => transition(ERROR_SAVE, true));
   };
 
   const handleDelete = () => {
-    transition(DELETING);
+    transition(DELETING, true);
 
     cancelInterview(id)
     .then(() => transition(EMPTY))
-    .catch(err => transition(ERROR_DELETE))
+    .catch(err => transition(ERROR_DELETE, true));
   };
 
   return (
@@ -66,30 +66,30 @@ export default function Appointment(props) {
       {mode === CREATE && (
         <Form
           interviewers={interviewers}
-          onCancel={() => back()}
+          onCancel={back}
           onSave={save}
         />
       )}
-      {mode === SAVING && <Status message={'Saving...'}/>}
-      {mode === DELETING && <Status message={'Deleting...'}/>}
       {mode === EDIT && (
         <Form
           interviewers={interviewers}
           student={interview.student}
           interviewer={interview.interviewer.id}
-          onCancel={() => back()}
+          onCancel={back}
           onSave={save}
         />
       )}
       {mode === CONFIRM && (
         <Confirm
           message={'Are you sure you would like to delete this interview?'}
-          onCancel={() => back()}
+          onCancel={back}
           onConfirm={handleDelete}
         />
       )}
-      {mode === ERROR_SAVE && <Error message={"Failed to save, please try again"} onClose={() => back()} />}
-      {mode === ERROR_DELETE && <Error message={"Failed to delete, please try again"} onClose={() => back()} />}
+      {mode === SAVING && <Status message={'Saving...'}/>}
+      {mode === DELETING && <Status message={'Deleting...'}/>}
+      {mode === ERROR_SAVE && <Error message={"Failed to save, please try again"} onClose={back} />}
+      {mode === ERROR_DELETE && <Error message={"Failed to delete, please try again"} onClose={back} />}
     </article>
   );
 }
