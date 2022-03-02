@@ -35,7 +35,7 @@ export default function useApplicationData() {
       spots = !appointments[id].interview ? spots + 1 : spots;
     })
   
-    return state.days.map(day => ({ ...day, spots }));
+    return state.days.map(day => (day.name === currentDay.name ? ({ ...day, spots }) : ({ ...day })));
   };
 
   /* add or update an interview to local & database
