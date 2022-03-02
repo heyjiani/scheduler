@@ -20,10 +20,14 @@ export default function Form(props) {
 
   /* Validate that the student name field is not blank */
   const validate = () => {
-    return student === ""
-      ? setError("Student name cannot be blank")
-      : props.onSave(student, interviewer);
-  };
+    if (student === "") {
+      setError("Student name cannot be blank");
+      return;
+    }
+  
+    setError("");
+    props.onSave(student, interviewer);
+  }
 
   return (
     <main className="appointment__card appointment__card--create">
