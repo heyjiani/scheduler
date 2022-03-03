@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Header from "./Header";
 import Show from "./Show";
@@ -51,11 +51,21 @@ export default function Appointment(props) {
     .catch(err => transition(ERROR_DELETE, true));
   };
 
+  /* transition to the correct mode when the value of interview changes */
+  useEffect(() => {
+    if (interview && mode === EMPTY) {
+     transition(SHOW);
+    }
+    if (interview === null && mode === SHOW) {
+     transition(EMPTY);
+    }
+   }, [interview, transition, mode]);
+
   return (
     <article className="appointment">
       <Header time={time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && (
+      {mode === SHOW && interview && (
         <Show
           student={interview.student}
           interviewer={interview.interviewer}
