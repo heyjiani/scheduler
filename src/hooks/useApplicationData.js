@@ -69,24 +69,9 @@ export default function useApplicationData() {
     interviewers: {}
   });
 
-  /* fetch API data */
   useEffect(() => {
-    // const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
-    // webSocket.onmessage = event => {
-    //   console.log(JSON.parse(event.data));
 
-    //   const data = JSON.parse(event.data);
-
-    //   if (data.type === "SET_INTERVIEW") {
-    //     dispatch({
-    //       type: SET_INTERVIEW,
-    //       appointments,
-    //       days
-    //     })
-    //   }
-      
-    // }
-
+    /* fetch API data */
     Promise.all([
       axios.get("/api/days"),
       axios.get("/api/appointments"),
@@ -101,7 +86,21 @@ export default function useApplicationData() {
         appointments: appointments.data,
         interviewers: interviewers.data
       });
-    })
+    });
+
+    /* connect to websocket server */
+    const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+    webSocket.onmessage = event => {
+      const data = JSON.parse(event.data);
+
+      if (data.type === "SET_INTERVIEW") {
+        dispatch({
+          type: SET_INTERVIEW,
+          id: data.id,
+          interview: data.interview
+        });
+      }
+    };
   }, []);
 
   /* set selected day as current day */
