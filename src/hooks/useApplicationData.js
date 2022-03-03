@@ -8,6 +8,21 @@ export default function useApplicationData() {
   const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
   const SET_INTERVIEW = "SET_INTERVIEW";
 
+  /* update number of available spots for current day
+  * finds current day, updates spot number using new appointment data, and returns a Days array
+  */
+  const updateSpots = function(state, appointments, id) {
+
+    const currentDay = state.days.find(day => day.appointments.includes(id));
+    let spots = 0;
+  
+    currentDay.appointments.forEach(id => {
+      spots = !appointments[id].interview ? spots + 1 : spots;
+    })
+  
+    return state.days.map(day => (day.name === currentDay.name ? ({ ...day, spots }) : ({ ...day })));
+  };
+
   /* reducer to alter current state */
   const reducer = (state, action) => {
     switch (action.type) {
@@ -24,11 +39,19 @@ export default function useApplicationData() {
           interviewers: action.interviewers
         };
       case SET_INTERVIEW: {
-        return {
-          ...state,
-          appointments: action.appointments,
-          days: action.days
+        const appointment = {
+          ...state.appointments[action.id],
+          interview: action.interview ? { ...action.interview } : null
         };
+    
+        const appointments = {
+          ...state.appointments,
+          [action.id]: appointment
+        };
+
+        const days = updateSpots(state, appointments, action.id);
+
+        return { ...state, appointments, days };
       }
       default: {
         throw new Error(
@@ -48,6 +71,22 @@ export default function useApplicationData() {
 
   /* fetch API data */
   useEffect(() => {
+    // const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+    // webSocket.onmessage = event => {
+    //   console.log(JSON.parse(event.data));
+
+    //   const data = JSON.parse(event.data);
+
+    //   if (data.type === "SET_INTERVIEW") {
+    //     dispatch({
+    //       type: SET_INTERVIEW,
+    //       appointments,
+    //       days
+    //     })
+    //   }
+      
+    // }
+
     Promise.all([
       axios.get("/api/days"),
       axios.get("/api/appointments"),
@@ -68,41 +107,14 @@ export default function useApplicationData() {
   /* set selected day as current day */
   const setDay = day => dispatch({ type: SET_DAY, day });
 
-  /* update number of available spots for current day
-  * finds current day, updates spot number using new appointment data, and returns a Days array
-  */
-  const updateSpots = function(state, appointments, id) {
-
-    const currentDay = state.days.find(day => day.appointments.includes(id));
-    let spots = 0;
-  
-    currentDay.appointments.forEach(id => {
-      spots = !appointments[id].interview ? spots + 1 : spots;
-    })
-  
-    return state.days.map(day => (day.name === currentDay.name ? ({ ...day, spots }) : ({ ...day })));
-  };
-
   /* add or update an interview to local & database
   * sends put request with interview data in the form of an obj & returns a promise
   */
   const bookInterview = (id, interview) => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-
-    const days = updateSpots(state, appointments, id);
-
     return axios
       .put(`/api/appointments/${id}`, { interview })
       .then(() => {
-        dispatch({ type: SET_INTERVIEW, appointments, days })
+        dispatch({ type: SET_INTERVIEW, id, interview })
       })
   };
 
@@ -110,22 +122,10 @@ export default function useApplicationData() {
   * sends delete request and returns a promise
   */
   const cancelInterview = (id) => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: null
-    };
-
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-
-    const days = updateSpots(state, appointments, id);
-
     return axios
       .delete(`/api/appointments/${id}`)
       .then(() => {
-        dispatch({ type: SET_INTERVIEW, appointments, days })
+        dispatch({ type: SET_INTERVIEW, id, interview: null })
       })
   };
 
