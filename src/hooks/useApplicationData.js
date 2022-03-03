@@ -3,10 +3,12 @@ import axios from "axios";
 
 export default function useApplicationData() {
 
+  /* set action type variables for reducer */
   const SET_DAY = "SET_DAY";
   const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
   const SET_INTERVIEW = "SET_INTERVIEW";
 
+  /* reducer to alter current state */
   const reducer = (state, action) => {
     switch (action.type) {
       case SET_DAY:
@@ -36,6 +38,7 @@ export default function useApplicationData() {
     }
   };
 
+  /* set initial state for reducer */
   const [state, dispatch] = useReducer(reducer, {
     day: "Monday",
     days: [],
@@ -43,6 +46,7 @@ export default function useApplicationData() {
     interviewers: {}
   });
 
+  /* fetch API data */
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),
@@ -51,6 +55,7 @@ export default function useApplicationData() {
     ]).then(all => {
       const [ days, appointments, interviewers ] = all;
 
+      /* update state with fetched data */
       dispatch({
         type: SET_APPLICATION_DATA,
         days: days.data,
@@ -60,7 +65,7 @@ export default function useApplicationData() {
     })
   }, []);
 
-  //set selected day as current day
+  /* set selected day as current day */
   const setDay = day => dispatch({ type: SET_DAY, day });
 
   /* update number of available spots for current day
