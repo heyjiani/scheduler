@@ -1,8 +1,8 @@
 # Interview Scheduler
 
-A single page application built using React that allows users to book, update, and cancel appointments throughout a week. Users can enter student names and choose from a list of interviewers. Axios handles all of the data requests! 
+A single page application built using _React_ that allows users to book, update, and cancel appointments throughout a week. Users can enter student names and choose from a list of interviewers. _Axios_ handles all the data requests! 
 
-Components were built and tested in a Storybook environment. Unit/Integration testing was done in Jest, and end-to-end testing was done in Cypress. 
+Components were built and tested in a _Storybook_ environment. Unit/Integration testing was done in _Jest_, and end-to-end testing was done in _Cypress_. 
 
 ## Built With
 
@@ -20,10 +20,15 @@ Components were built and tested in a Storybook environment. Unit/Integration te
 * [Cypress](https://www.cypress.io/)
 
 ## Features
-![Add new appointment](https://github.com/heyjiani/scheduler/blob/master/docs/scheduler-ui-add.gif?raw=true)
-![Edit appointment](https://github.com/heyjiani/scheduler/blob/master/docs/scheduler-ui-edit.gif?raw=true)
-![Delete appointment](https://github.com/heyjiani/scheduler/blob/master/docs/scheduler-ui-delete.gif?raw=true)
 
+Users can navigate to a day of their choosing and add an appointment to one of the available time slots (up to 5 slots per day). 
+![Add new appointment](https://github.com/heyjiani/scheduler/blob/master/docs/scheduler-ui-add.gif?raw=true)
+
+Users can edit an existing appointment by clicking the Edit button. They have the option of updating both the student name and the chosen interviewer. 
+![Edit appointment](https://github.com/heyjiani/scheduler/blob/master/docs/scheduler-ui-edit.gif?raw=true)
+
+Users can delete an existing appointment by clicking the little trash can button. 
+![Delete appointment](https://github.com/heyjiani/scheduler/blob/master/docs/scheduler-ui-delete.gif?raw=true)
 
 ## Getting Started
 
