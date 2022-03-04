@@ -10,8 +10,6 @@ function InterviewerList(props) {
 
   const parsedInterviewers =
     Array.isArray(interviewers) && interviewers.map(interviewer => 
-      //interviewerItem.selected = (interviewerItem.id === interviewer)
-      //interviewerItem.setInterviewer = () => setInterviewer(interviewerItem.id)
       <InterviewerListItem
         {...interviewer}
         key={interviewer.id}
