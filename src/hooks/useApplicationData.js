@@ -100,6 +100,7 @@ export default function useApplicationData() {
           interview: data.interview
         });
       }
+      return () => webSocket.close();
     };
   }, []);
 
