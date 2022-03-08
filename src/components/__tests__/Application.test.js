@@ -4,7 +4,7 @@ import { render, cleanup, waitForElement, fireEvent } from "@testing-library/rea
 
 import Application from "components/Application";
 
-process.env = Object.assign(provess.env, {
+process.env = Object.assign(process.env, {
   TESTING: true
 });
 
