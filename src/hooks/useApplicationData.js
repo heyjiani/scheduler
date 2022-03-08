@@ -100,8 +100,10 @@ export default function useApplicationData() {
           interview: data.interview
         });
       }
-      return () => webSocket.close();
+
     };
+
+    return () => webSocket.close();
   }, []);
 
   /* set selected day as current day */
