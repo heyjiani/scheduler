@@ -4,6 +4,8 @@ A single page application built using _React_ that allows users to book, update,
 
 Components were built and tested in a _Storybook_ environment. Unit/Integration testing was done in _Jest_, and end-to-end testing was done in _Cypress_. 
 
+Check out a deployed version [HERE!](https://elegant-hodgkin-708257.netlify.app/)
+
 This project was built as part of my learnings at [LighthouseLabs](https://www.lighthouselabs.ca/). 
 
 ## Built With
