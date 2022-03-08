@@ -4,6 +4,10 @@ import { render, cleanup, waitForElement, fireEvent } from "@testing-library/rea
 
 import Application from "components/Application";
 
+process.env = Object.assign(provess.env, {
+  TESTING: true
+});
+
 afterEach(cleanup);
 
 it("defaults to Monday and changes the schedule when a new day is selected", () => {

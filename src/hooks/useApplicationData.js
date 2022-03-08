@@ -89,6 +89,8 @@ export default function useApplicationData() {
     });
 
     /* connect to websocket server */
+    if (process.env.TESTING) return;
+    
     const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
     webSocket.onmessage = event => {
       const data = JSON.parse(event.data);
