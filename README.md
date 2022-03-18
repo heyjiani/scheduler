@@ -28,10 +28,11 @@ This project was built as part of my learnings at [LighthouseLabs](https://www.l
 Users can navigate to a day of their choosing and add an appointment to one of the available time slots. 
 ![Add new appointment](https://github.com/heyjiani/scheduler/blob/master/docs/scheduler-ui-add.gif?raw=true)
 
-Users can edit an existing appointment by clicking the Edit button. They have the option of updating both the student name and the chosen interviewer. 
+Users can edit an existing appointment by clicking the Edit button.
+They have the option of updating both the student name and the chosen interviewer. 
 ![Edit appointment](https://github.com/heyjiani/scheduler/blob/master/docs/scheduler-ui-edit.gif?raw=true)
 
-Users can delete an existing appointment by clicking the little trash can button. 
+Users can delete an existing appointment by clicking the trash can button. 
 ![Delete appointment](https://github.com/heyjiani/scheduler/blob/master/docs/scheduler-ui-delete.gif?raw=true)
 
 ## Getting Started
