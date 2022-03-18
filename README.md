@@ -25,7 +25,7 @@ This project was built as part of my learnings at [LighthouseLabs](https://www.l
 
 ## Features
 
-Users can navigate to a day of their choosing and add an appointment to one of the available time slots (up to 5 slots per day). 
+Users can navigate to a day of their choosing and add an appointment to one of the available time slots. 
 ![Add new appointment](https://github.com/heyjiani/scheduler/blob/master/docs/scheduler-ui-add.gif?raw=true)
 
 Users can edit an existing appointment by clicking the Edit button. They have the option of updating both the student name and the chosen interviewer. 
